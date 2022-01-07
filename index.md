@@ -6,9 +6,5 @@ profile_picture:
 ---
 
 <p>
-  Welcome! This site serves as an example for the Bay Jekyll theme. Bay is a very simple and minimal theme, directly inspired by Dan Grover's <a href="http://dangrover.com">website</a>.
-</p>
-
-<p>
-  You can find the source code and the instructions on <a href="https://github.com/eliottvincent/bay">GitHub</a>.
+  Hi! I'm Samyak. I am a budding data scientist and software engineer. I currently work as a <strong>Senior Software Engineer</strong> at <a href="https://research.samsung.com/sri-b">Samsung Research Institute Bangalore</a>.
 </p>
