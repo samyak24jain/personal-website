@@ -1,13 +1,17 @@
 .profile-pic {
-  float: right;
-  width: 202px;
+  // float: right;
+  // width: 400px;
   border: #ccc 1px solid;
-  margin-left: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
 
   @include media-query($on-mobile) {
     float: none;
-    margin-bottom: 20px;
-    margin-left: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
   }
 }
 
