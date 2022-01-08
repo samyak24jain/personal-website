@@ -5,13 +5,13 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  width: 100%;
 
   @include media-query($on-mobile) {
     float: none;
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    width: 100%;
   }
 }
 
