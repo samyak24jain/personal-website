@@ -4,5 +4,5 @@ title: Resume
 slug: /resume
 ---
 
-<a href="https://bit.ly/samyak-cv" target="_blank" rel="noopener noreferrer">View my Resume</a>
-<br />
+<meta http-equiv="refresh" content="0; url=/assets/Samyak_Resume.pdf">
+<a href="/assets/Samyak_Resume.pdf">View Resume PDF</a>
