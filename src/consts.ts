@@ -42,4 +42,8 @@ export const SOCIALS: Socials = [
     NAME: "linkedin",
     HREF: "https://www.linkedin.com/in/samyak24jain",
   },
+  {
+    NAME: "google scholar",
+    HREF: "https://scholar.google.com/citations?hl=en&user=x7fpLDUAAAAJ",
+  },
 ];

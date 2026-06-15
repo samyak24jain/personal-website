@@ -17,12 +17,15 @@ import BackToTop from "@components/BackToTop.astro";
         <div>
           &copy; {new Date().getFullYear()} {`|`} {SITE.NAME}
         </div>
-        <div class="flex gap-x-3 text-sm">
+        <div class="flex flex-wrap gap-x-3 gap-y-1 text-sm">
           {SOCIALS.map(social => (
             <Link href={social.HREF} external aria-label={`${SITE.NAME} on ${social.NAME}`}>
               {social.NAME}
             </Link>
           ))}
+          <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
+            email
+          </Link>
         </div>
         <div class="text-xs opacity-75">
           Built with <Link href="https://github.com/markhorn-dev/astro-nano" external>Astro Nano</Link>
