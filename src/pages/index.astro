@@ -1,0 +1,148 @@
+---
+import { getCollection } from "astro:content";
+import Container from "@components/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+import ArrowCard from "@components/ArrowCard.astro";
+import Link from "@components/Link.astro";
+import { dateRange } from "@lib/utils";
+import { SITE, HOME } from "@consts";
+import { PUBLICATIONS_LIST } from "@data/publications";
+
+const publications = PUBLICATIONS_LIST.slice(0, 3);
+
+const blog = (await getCollection("blog"))
+  .filter(post => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0,SITE.NUM_POSTS_ON_HOMEPAGE);
+
+const allwork = (await getCollection("work"))
+  .filter(entry => entry.data.featured)
+  .sort((a, b) => new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf())
+  .slice(0,SITE.NUM_WORKS_ON_HOMEPAGE);
+
+const work = await Promise.all(
+  allwork.map(async (item) => {
+    const { Content } = await item.render();
+    return { ...item, Content };
+  })
+);
+
+---
+
+<PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
+  <Container>
+    <div class="space-y-16">
+      <section class="space-y-4">
+        <img
+          src="/profile.jpg"
+          alt="Samyak Jain in front of the Golden Gate Bridge"
+          width="1600"
+          height="1200"
+          class="animate w-full max-w-xs rounded-xl border border-black/5 dark:border-white/10"
+        />
+        <h4 class="animate font-semibold text-black dark:text-white">
+          Hi, I'm Samyak <span class="text-xl">👋🏻</span>
+        </h4>
+        <article class="space-y-4">
+          <p class="animate">
+            I'm a software engineer building machine learning and applied AI
+            systems. Right now I'm a Senior Software Engineer at
+            <Link href="https://www.powerschool.com/" external>PowerSchool</Link>,
+            where I design and ship agentic AI products for K-12 education.
+          </p>
+          <p class="animate">
+            Before that, I spent five years at
+            <Link href="https://research.samsung.com/sri-b" external>Samsung Research</Link>
+            working on ML and computer vision — building real-time deep learning
+            models for video restoration and image processing on flagship Galaxy
+            devices. I hold a Master's in Natural Language Processing from
+            <Link href="https://www.ucsc.edu/" external>UC Santa Cruz</Link>
+            and a Bachelor's in Information Technology from the
+            <Link href="https://www.nitk.ac.in/" external>National Institute of Technology Karnataka</Link>.
+          </p>
+          <p class="animate">
+            Thanks for stopping by :)
+          </p>
+        </article>
+      </section>
+
+      {blog.length > 0 && (
+        <section class="animate space-y-6">
+          <div class="flex flex-wrap gap-y-2 items-center justify-between">
+            <h5 class="font-semibold text-black dark:text-white">
+              Latest posts
+            </h5>
+            <Link href="/blog">
+              See all posts
+            </Link>
+          </div>
+          <ul class="flex flex-col gap-4">
+            {blog.map(post => (
+              <li>
+                <ArrowCard entry={post} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section class="animate space-y-6">
+        <div class="flex flex-wrap gap-y-2 items-center justify-between">
+          <h5 class="font-semibold text-black dark:text-white">
+            Work Experience
+          </h5>
+          <Link href="/work">
+            See all work
+          </Link>
+        </div>
+        <ul class="flex flex-col space-y-4">
+          {work.map(entry => (
+            <li>
+              <div class="text-sm opacity-75">
+                {dateRange(entry.data.dateStart, entry.data.dateEnd)}
+              </div>
+              <div class="font-semibold text-black dark:text-white">
+                {entry.data.company}
+              </div>
+              <div class="text-sm opacity-75">
+                {entry.data.role}
+              </div>
+              <article>
+                <entry.Content />
+              </article>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="animate space-y-6">
+        <div class="flex flex-wrap gap-y-2 items-center justify-between">
+          <h5 class="font-semibold text-black dark:text-white">
+            Publications
+          </h5>
+          <Link href="/publications">
+            See all publications
+          </Link>
+        </div>
+        <ul class="flex flex-col space-y-4">
+          {publications.map(pub => (
+            <li>
+              <div class="font-semibold text-black dark:text-white">
+                {pub.link ? (
+                  <Link href={pub.link} external>
+                    {pub.title}
+                  </Link>
+                ) : (
+                  pub.title
+                )}
+              </div>
+              <div class="text-sm opacity-75">
+                {pub.venue} · {pub.year}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </Container>
+</PageLayout>
